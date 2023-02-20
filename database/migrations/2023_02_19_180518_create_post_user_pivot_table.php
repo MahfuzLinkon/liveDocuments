@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreatePostUserPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreign('user_id')->on('users')->references('id')->cascadeOnDelete();
             $table->foreignId('post_id')->index();
             $table->foreign('post_id')->on('posts')->references('id')->cascadeOnDelete();
+            $table->primary(['user_id', 'post_id']);
         });
     }
 
