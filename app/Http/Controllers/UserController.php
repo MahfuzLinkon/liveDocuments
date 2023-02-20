@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\User;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
-class PostController extends Controller
+/**
+ *
+ */
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +20,7 @@ class PostController extends Controller
     public function index(): JsonResponse
     {
         return new JsonResponse([
-            'data' => 'Checking Post',
+            'data' => 'Checking User',
         ]);
     }
 
@@ -34,17 +37,17 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post): JsonResponse
+    public function show(User $user): JsonResponse
     {
         return new JsonResponse([
-            'data' => $post,
+            'data' => $user,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post): JsonResponse
+    public function update(Request $request, User $user): JsonResponse
     {
         return new JsonResponse([
             'data' => 'Updated',
@@ -54,7 +57,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post): JsonResponse
+    public function destroy(User $user): JsonResponse
     {
         return new JsonResponse([
             'data' => 'Deleted',
