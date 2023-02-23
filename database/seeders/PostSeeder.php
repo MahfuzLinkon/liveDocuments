@@ -23,32 +23,27 @@ class PostSeeder extends Seeder
 
         $this->truncate('posts');
 
-        $posts = Post::factory(3)
+        $posts = Post::factory(200)
             ->create();
 //        dump(count($posts));
 
-        // seed post_user table
-//        $posts->each(function (Post $post){
-//           $post->users()->sync([FactoryHelper::getRandomModelId(User::class)]);
-//        });
-//        foreach ($posts as $post){
-//            $post->users()->sync([FactoryHelper::getRandomModelId(User::class)]);
+//         seed post_user table
+        $posts->each(function (Post $post){
+           $post->users()->sync([FactoryHelper::getRandomModelId(User::class)]);
+        });
+        $this->enableForeignKeys();
+
+//        $this->disableForeignKeys();
+//        $this->truncate('post_user');
+//        for ($i = 1; $i <= count($posts) ; $i++ ){
+//            DB::table('post_user')->insert(
+//                array(
+//                    'user_id' => FactoryHelper::getRandomModelId(User::class),
+//                    'post_id' => FactoryHelper::getRandomModelId(Post::class),
+//                )
+//            );
 //        }
-        $this->enableForeignKeys();
-
-
-        $this->disableForeignKeys();
-
-        $this->truncate('post_user');
-        for ($i = 1; $i <= count($posts) ; $i++ ){
-            DB::table('post_user')->insert(
-                array(
-                    'user_id' => FactoryHelper::getRandomModelId(User::class),
-                    'post_id' => FactoryHelper::getRandomModelId(Post::class),
-                )
-            );
-        }
-        $this->enableForeignKeys();
+//        $this->enableForeignKeys();
 
     }
 }
