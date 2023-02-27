@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Models\User\UserCreated;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
 use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Throwable;
 
 /**
@@ -23,6 +21,7 @@ class UserController extends Controller
      */
     public function index(): ResourceCollection
     {
+        event(new UserCreated(User::factory()->make()));
         return UserResource::collection(User::query()->paginate(5));
     }
 
@@ -55,6 +54,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user, UserRepository $repository): UserResource
     {
+
         $updated = $repository->update($user, $request->only([
             'name',
             'email',
