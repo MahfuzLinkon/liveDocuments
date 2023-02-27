@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\GeneralJsonException;
 use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -17,9 +18,11 @@ class CommentRepository extends BaseRepository
                 'post_id' => data_get($attribute, 'post_id'),
                 'body' => data_get($attribute, 'body'),
             ]);
-            if (!$created){
-                throw new Exception('comment not created');
-            }
+//            if (!$created){
+//                throw new Exception('comment not created');
+//            }
+            throw_if(!$created, GeneralJsonException::class, 'failed to create comment');
+
             return $created;
         });
 
@@ -33,9 +36,10 @@ class CommentRepository extends BaseRepository
                 'post_id' => data_get($attribute, 'post_id' , $comment->post_id),
                 'body' => data_get($attribute, 'body' , $comment->body),
             ]);
-            if (!$updated){
-                throw new Exception('comment not updated');
-            }
+//            if (!$updated){
+//                throw new Exception('comment not updated');
+//            }
+            throw_if(!$updated, GeneralJsonException::class, 'failed to update comment');
             return $comment;
         });
     }
@@ -44,9 +48,10 @@ class CommentRepository extends BaseRepository
     {
         return DB::transaction(function () use($comment){
             $deleted = $comment->forceDelete();
-            if (!$deleted){
-                throw new Exception('comment not deleted');
-            }
+//            if (!$deleted){
+//                throw new Exception('comment not deleted');
+//            }
+            throw_if(!$deleted, GeneralJsonException::class, 'failed to delete comment');
             return $deleted;
         });
     }

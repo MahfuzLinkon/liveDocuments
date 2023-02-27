@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 
 
 Route::middleware([
-    'auth'
+//    'auth'
 ])
     ->as('users.')
 //    ->prefix('heYBro')
@@ -17,8 +17,8 @@ Route::middleware([
         Route::get('/users/{user}', [UserController::class, 'show'])
             ->name('show')
 //            ->where('user', '[0-9]+')
-            ->whereNumber('user')
-            ->withoutMiddleware('auth');
+            ->whereNumber('user');
+//            ->withoutMiddleware('auth');
         Route::put('/users/{user}', [UserController::class, 'update'])->name('update');
         Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('destroy');
     });
