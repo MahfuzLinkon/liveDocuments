@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function index(): ResourceCollection
     {
-        event(new UserCreated(User::factory()->make()));
+//        event(new UserCreated(User::factory()->make()));
         return UserResource::collection(User::query()->paginate(5));
     }
 
@@ -38,6 +38,7 @@ class UserController extends Controller
 //        return new JsonResponse([
 //            'data' => 'Posted',
 //        ]);
+//        event(new UserCreated($created));
         return new UserResource($created);
     }
 

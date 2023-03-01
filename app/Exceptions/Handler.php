@@ -45,8 +45,8 @@ class Handler extends ExceptionHandler
 
         });
 
-        $this->renderable(function (){
-
-        });
+//        $this->renderable(function (){
+//
+//        });
     }
 }
